@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import express from "express"
+import express, { NextFunction, Request, Response } from "express"
 import {AppDataSource} from "./data-source"
 import cors from "cors"
 import userRouter from "./routes/user.routes";

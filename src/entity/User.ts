@@ -13,4 +13,10 @@ export class User {
 
     @Column({default: 18})
     age: number;
+
+    @Column({nullable: true})
+    password: string;
+
+    @Column({nullable: true})
+    login: string;
 }
