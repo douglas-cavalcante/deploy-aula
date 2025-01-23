@@ -1,25 +1,15 @@
 import "reflect-metadata";
-import express, { Request, Response } from "express"
+import express, { NextFunction, Request, Response } from "express"
 import {AppDataSource} from "./data-source"
 import cors from "cors"
-import { User } from "./entity/User";
+import userRouter from "./routes/user.routes";
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 
-const userRepository = AppDataSource.getRepository(User)
-
-app.get("/users", (req: Request, res: Response) => {
-    try {
-        const listUser = userRepository.find()
-
-        res.status(200).json(listUser)
-    } catch (ex) {
-        res.status(500).send("Ocorreu um erro ao executar a solicitação")
-    }
-})
+app.use("/users", userRouter)
 
 AppDataSource.initialize().then(() => {
     app.listen(3000, () => {
