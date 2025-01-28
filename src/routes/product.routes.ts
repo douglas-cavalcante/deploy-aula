@@ -42,4 +42,27 @@ productRouter.get("/:id", async (request: Request, response: Response) => {
   }
 });
 
+productRouter.post("/", async (request: Request, response: Response) => {
+  try {
+    const body = request.body;
+    
+    if (!body.name) {
+      response.status(400).json({ error: "O nome é obrigatório" });
+    } else if (!body.price) {
+      response.status(400).json({ error: "O preço é obrigatório" });
+    } else if (!body.description) {
+      response.status(400).json({ error: "A descrição é obrigatório" });
+    } else if (!body.amount) {
+      response.status(400).json({ error: "A quantidade é obrigatória" });
+    } else {
+      const product = await productRepository.save(body);
+      response.status(201).json(product);
+    }
+  } catch (error) {
+    response
+      .status(500)
+      .json({ error: "Não foi possível cadastrar o produto" });
+  }
+});
+
 export default productRouter;

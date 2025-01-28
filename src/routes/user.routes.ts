@@ -34,6 +34,7 @@ userRouter.post("/", rotaAutenticada, async (req: Request, res: Response) => {
             login: req.body.login,
             password: senhaCriptografada
         })
+                
         await userRepository.save(user)
 
         res.status(201).json(user)
