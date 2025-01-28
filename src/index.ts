@@ -1,15 +1,20 @@
 import "reflect-metadata";
-import express, { NextFunction, Request, Response } from "express"
+import express from "express"
 import {AppDataSource} from "./data-source"
+
 import cors from "cors"
+
 import userRouter from "./routes/user.routes";
+import productRouter from "./routes/product.routes";
 
 const app = express()
 
-app.use(cors())
-app.use(express.json())
+app.use(cors()) // Permite que o express entenda requisições de outros domínios
+
+app.use(express.json()) // Permite que o express entenda JSON
 
 app.use("/users", userRouter)
+app.use("/products", productRouter)
 
 AppDataSource.initialize().then(() => {
     app.listen(3000, () => {
