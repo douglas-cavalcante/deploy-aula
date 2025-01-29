@@ -1,22 +1,20 @@
 import { Request, Response } from "express";
-import { FindOptionsOrderValue } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Product } from "../entity/Product";
+import { FindOptionsOrderValue } from "typeorm";
 
 class ProductController {
-  // private productRepository;
+  private productRepository;
 
   constructor() {
-    // this.productRepository = AppDataSource.getRepository(Product);
+    this.productRepository = AppDataSource.getRepository(Product);
   }
 
-  async getAll(request: Request, response: Response) {
+   getAll = async (request: Request, response: Response) => {
     try {
       const query = request.query;
 
-      const productRepository = AppDataSource.getRepository(Product);
-
-      const products = await productRepository.find({
+      const products = await this.productRepository.find({
         order: {
           price: (query.order as FindOptionsOrderValue) || "ASC",
         },

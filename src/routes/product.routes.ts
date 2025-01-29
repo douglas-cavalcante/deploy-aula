@@ -2,9 +2,12 @@ import { Request, Response, Router } from "express";
 
 import { AppDataSource } from "../data-source";
 import { Product } from "../entity/Product";
+
+import { FindOptionsOrderValue } from "typeorm";
 import ProductController from "../controllers/ProductController";
 
 const productRouter = Router();
+
 const productRepository = AppDataSource.getRepository(Product);
 
 const productController = new ProductController()
