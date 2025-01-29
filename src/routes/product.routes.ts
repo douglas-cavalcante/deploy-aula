@@ -2,27 +2,14 @@ import { Request, Response, Router } from "express";
 
 import { AppDataSource } from "../data-source";
 import { Product } from "../entity/Product";
-import { FindOptionsOrderValue } from "typeorm";
+import ProductController from "../controllers/ProductController";
 
 const productRouter = Router();
-
 const productRepository = AppDataSource.getRepository(Product);
 
-productRouter.get("/", async (request: Request, response: Response) => {
-  try {
-    const query = request.query;
+const productController = new ProductController()
 
-    const products = await productRepository.find({
-      order: {
-        price: (query.order as FindOptionsOrderValue) || "ASC",
-      },
-    }); // SELECT * from products
-
-    response.json(products);
-  } catch (error) {
-    response.status(500).json({ error: "Não foi possível buscar os produtos" });
-  }
-});
+productRouter.get("/", productController.getAll);
 
 productRouter.get("/:id", async (request: Request, response: Response) => {
   try {
