@@ -41,7 +41,10 @@ class ProductController {
         order: {
           price: (query.order as FindOptionsOrderValue) || "ASC",
         },
-      }); // SELECT * from products
+        where: {
+          status: true
+        }
+      }); // SELECT * from products where status = true 
 
       response.json(products);
     } catch (error) {
@@ -88,7 +91,6 @@ class ProductController {
       if (!productInDatabase) {
         response.status(404).json({ error: "Produto não encontrado" });
       } else {
-        
         Object.assign(productInDatabase, body);
 
         await this.productRepository.save(productInDatabase);
@@ -120,6 +122,41 @@ class ProductController {
       response
         .status(500)
         .json({ error: "Não foi possível deletar o produto" });
+    }
+  };
+
+  status = async (request: Request, response: Response) => {
+    try {
+      const params = request.params;
+
+      const productInDatabase = await this.productRepository.findOneBy({
+        id: parseInt(params.id),
+      });
+
+      if (!productInDatabase) {
+        response
+          .status(404)
+          .json({ error: "Não foi encontrado produto com esse ID" });
+      } else {
+        //  productInDatabase.status =  productInDatabase.status ? false : true
+
+        /* SOLUCAO PADRAO
+        if(productInDatabase.status === true) {
+          productInDatabase.status = false
+        } else {
+          productInDatabase.status = true
+        }*/
+
+        productInDatabase.status = !productInDatabase.status;
+
+        this.productRepository.save(productInDatabase);
+
+        response.json(productInDatabase);
+      }
+    } catch (error) {
+      response
+        .status(500)
+        .json({ error: "Não foi possível desativar o produto" });
     }
   };
 }
