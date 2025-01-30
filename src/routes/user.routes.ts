@@ -51,7 +51,7 @@ userRouter.put("/:id", rotaAutenticada, async (req: Request, res: Response) => {
                 id: Number(req.params.id)
             }
         }) ?? new User()
-
+       
         if(user.id == null){
             res.status(400).json("Usuário não encontrado!")
             return

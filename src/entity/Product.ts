@@ -26,7 +26,7 @@ export class Product {
     @Column({ type: 'boolean', default: true })
     status: boolean;
 
-    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP',  })
     created_at: Date;
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
