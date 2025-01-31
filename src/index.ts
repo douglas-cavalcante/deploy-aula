@@ -8,6 +8,7 @@ import cors from "cors"
 
 import userRouter from "./routes/user.routes";
 import productRouter from "./routes/product.routes";
+import {handleError} from "./middlewares/handleError";
 
 const app = express()
 
@@ -17,6 +18,8 @@ app.use(express.json()) // Permite que o express entenda JSON
 
 app.use("/users", userRouter)
 app.use("/products", productRouter)
+
+app.use(handleError)
 
 AppDataSource.initialize().then(() => {
     app.listen(3000, () => {

@@ -1,10 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { Product } from "../entity/Product";
 import { FindOptionsOrderValue } from "typeorm";
 
 import AppError from "../utils/AppError";
-import handleError from "../middlewares/handleError";
 
 class ProductController {
   private productRepository;
@@ -13,7 +12,7 @@ class ProductController {
     this.productRepository = AppDataSource.getRepository(Product);
   }
 
-  create = async (request: Request, response: Response) => {
+  create = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const body = request.body;
 
@@ -30,11 +29,11 @@ class ProductController {
         response.status(201).json(product);
       }
     } catch (error) {
-      handleError(error, response);
+      next(error);
     }
   };
 
-  getAll = async (request: Request, response: Response) => {
+  getAll = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const query = request.query;
 
@@ -49,11 +48,11 @@ class ProductController {
 
       response.json(products);
     } catch (error) {
-      handleError(error, response);
+      next(error);
     }
   };
 
-  getOne = async (request: Request, response: Response) => {
+  getOne = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const params = request.params;
 
@@ -67,11 +66,11 @@ class ProductController {
         response.json(productInDatabase);
       }
     } catch (error) {
-      handleError(error, response);
+      next(error);
     }
   };
 
-  update = async (request: Request, response: Response) => {
+  update = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const params = request.params;
       const body = request.body;
@@ -97,11 +96,11 @@ class ProductController {
         response.status(200).json(productInDatabase);
       }
     } catch (error) {
-      handleError(error, response);
+      next(error);
     }
   };
 
-  delete = async (request: Request, response: Response) => {
+  delete = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const params = request.params;
 
@@ -116,11 +115,11 @@ class ProductController {
         response.status(204).json();
       }
     } catch (error) {
-      handleError(error, response);
+      next(error);
     }
   };
 
-  status = async (request: Request, response: Response) => {
+  status = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const params = request.params;
 
@@ -147,7 +146,7 @@ class ProductController {
         response.json(productInDatabase);
       }
     } catch (error) {
-      handleError(error, response);
+      next(error);
     }
   };
 }
