@@ -3,6 +3,9 @@ import { AppDataSource } from "../data-source";
 import { Product } from "../entity/Product";
 import { FindOptionsOrderValue } from "typeorm";
 
+import AppError from "../utils/AppError";
+import handleError from "../middlewares/handleError";
+
 class ProductController {
   private productRepository;
 
@@ -15,21 +18,19 @@ class ProductController {
       const body = request.body;
 
       if (!body.name) {
-        response.status(400).json({ error: "O nome é obrigatório" });
+        throw new AppError("O nome é obrigatório", 400);
       } else if (!body.price) {
-        response.status(400).json({ error: "O preço é obrigatório" });
+        throw new AppError("O preço é obrigatório", 400);
       } else if (!body.description) {
-        response.status(400).json({ error: "A descrição é obrigatório" });
+        throw new AppError("A descrição é obrigatório", 400);
       } else if (!body.amount) {
-        response.status(400).json({ error: "A quantidade é obrigatória" });
+        throw new AppError("A quantidade é obrigatória", 400);
       } else {
         const product = await this.productRepository.save(body);
         response.status(201).json(product);
       }
     } catch (error) {
-      response
-        .status(500)
-        .json({ error: "Não foi possível cadastrar o produto" });
+      handleError(error, response);
     }
   };
 
@@ -42,16 +43,13 @@ class ProductController {
           price: (query.order as FindOptionsOrderValue) || "ASC",
         },
         where: {
-          status: true
-        }
-      }); // SELECT * from products where status = true 
+          status: true,
+        },
+      }); // SELECT * from products where status = true
 
       response.json(products);
     } catch (error) {
-      console.log(error);
-      response
-        .status(500)
-        .json({ error: "Não foi possível buscar os produtos" });
+      handleError(error, response);
     }
   };
 
@@ -64,12 +62,12 @@ class ProductController {
       }); // SELECT * from products WHERE id = params.id
 
       if (!productInDatabase) {
-        response.status(404).json({ error: "Produto não encontrado" });
+        throw new AppError("Produto não encontrado", 404);
       } else {
         response.json(productInDatabase);
       }
     } catch (error) {
-      response.status(500).json({ error: "Não foi possível buscar o produto" });
+      handleError(error, response);
     }
   };
 
@@ -79,9 +77,10 @@ class ProductController {
       const body = request.body;
 
       if (body.id || body.created_at || body.updated_at) {
-        response
-          .status(403)
-          .json({ error: "Existem informações que não podem ser atualizadas" });
+        throw new AppError(
+          "Existem informações que não podem ser atualizadas",
+          403
+        );
       }
 
       const productInDatabase = await this.productRepository.findOneBy({
@@ -89,7 +88,7 @@ class ProductController {
       });
 
       if (!productInDatabase) {
-        response.status(404).json({ error: "Produto não encontrado" });
+        throw new AppError("Produto não encontrado", 404);
       } else {
         Object.assign(productInDatabase, body);
 
@@ -98,9 +97,7 @@ class ProductController {
         response.status(200).json(productInDatabase);
       }
     } catch (error) {
-      response
-        .status(500)
-        .json({ error: "Não foi possível atualizar o produto" });
+      handleError(error, response);
     }
   };
 
@@ -113,15 +110,13 @@ class ProductController {
       });
 
       if (!productInDatabase) {
-        response.status(404).json({ error: "Produto não encontrado" });
+        throw new AppError("Produto não encontrado", 404);
       } else {
         await this.productRepository.delete(productInDatabase.id);
         response.status(204).json();
       }
-    } catch {
-      response
-        .status(500)
-        .json({ error: "Não foi possível deletar o produto" });
+    } catch (error) {
+      handleError(error, response);
     }
   };
 
@@ -134,9 +129,7 @@ class ProductController {
       });
 
       if (!productInDatabase) {
-        response
-          .status(404)
-          .json({ error: "Não foi encontrado produto com esse ID" });
+        throw new AppError("Não foi encontrado produto com esse ID", 404);
       } else {
         //  productInDatabase.status =  productInDatabase.status ? false : true
 
@@ -154,9 +147,7 @@ class ProductController {
         response.json(productInDatabase);
       }
     } catch (error) {
-      response
-        .status(500)
-        .json({ error: "Não foi possível desativar o produto" });
+      handleError(error, response);
     }
   };
 }
