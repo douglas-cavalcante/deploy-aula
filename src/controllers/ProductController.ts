@@ -4,12 +4,16 @@ import { Product } from "../entity/Product";
 import { FindOptionsOrderValue } from "typeorm";
 
 import AppError from "../utils/AppError";
+import SendEmail from "../utils/SendEmail";
 
 class ProductController {
   private productRepository;
+ // private sendMail;
+
 
   constructor() {
     this.productRepository = AppDataSource.getRepository(Product);
+   // this.sendMail = new SendEmail()
   }
 
   create = async (request: Request, response: Response, next: NextFunction) => {
@@ -25,7 +29,13 @@ class ProductController {
       } else if (!body.amount) {
         throw new AppError("A quantidade é obrigatória", 400);
       } else {
+
         const product = await this.productRepository.save(body);
+
+        // enviar email
+        const sendMail = new SendEmail()
+        await sendMail.send(body.email, "Novo produto no estoque", body.name)
+
         response.status(201).json(product);
       }
     } catch (error) {
