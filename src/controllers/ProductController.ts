@@ -54,6 +54,7 @@ class ProductController {
         where: {
           status: true,
         },
+        relations: ["category"]
       }); // SELECT * from products where status = true
 
       response.json(products);

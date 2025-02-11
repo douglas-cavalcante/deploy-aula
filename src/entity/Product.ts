@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from "typeorm";
+import { Category } from "./Category";
 
 @Entity('products')
 export class Product {
@@ -25,8 +26,15 @@ export class Product {
 
     @Column({ type: 'boolean', default: true })
     status: boolean;
+    
+    @Column({type: 'int'})
+    category_id: number
 
-    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP',  })
+    @OneToOne(() => Category)
+    @JoinColumn({ name: 'category_id' })
+    category: Category;
+
+    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;
 
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
