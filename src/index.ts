@@ -9,6 +9,7 @@ import cors from "cors"
 import userRouter from "./routes/user.routes";
 import productRouter from "./routes/product.routes";
 import {handleError} from "./middlewares/handleError";
+import verifyToken from "./middlewares/auth";
 
 const app = express()
 
@@ -16,8 +17,11 @@ app.use(cors()) // Permite que o express entenda requisições de outros domíni
 
 app.use(express.json()) // Permite que o express entenda JSON
 
+
 app.use("/users", userRouter)
-app.use("/products", productRouter)
+
+app.use("/products", verifyToken, productRouter)
+
 
 app.use(handleError)
 

@@ -8,7 +8,7 @@ const userRepository = AppDataSource.getRepository(User)
 
 const userRouter = Router()
 
-userRouter.get("/", rotaAutenticada, async (req: Request, res: Response) => {
+userRouter.get("/", async (req: Request, res: Response) => {
     try {
         const listUser = await userRepository.find()
 
@@ -18,7 +18,7 @@ userRouter.get("/", rotaAutenticada, async (req: Request, res: Response) => {
     }
 })
 
-userRouter.post("/", rotaAutenticada, async (req: Request, res: Response) => {
+userRouter.post("/", async (req: Request, res: Response) => {
     try {
 
         let senha = req.body.password
@@ -44,7 +44,7 @@ userRouter.post("/", rotaAutenticada, async (req: Request, res: Response) => {
     }
 })
 
-userRouter.put("/:id", rotaAutenticada, async (req: Request, res: Response) => {
+userRouter.put("/:id", async (req: Request, res: Response) => {
     try {
         let user = await userRepository.findOne({
             where: {
@@ -70,7 +70,7 @@ userRouter.put("/:id", rotaAutenticada, async (req: Request, res: Response) => {
     }
 })
 
-userRouter.delete("/:id", rotaAutenticada, async (req: Request, res: Response) => {
+userRouter.delete("/:id", async (req: Request, res: Response) => {
     try {
         let id = Number(req.params.id)
 
