@@ -12,6 +12,8 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 
     const data = jwt.verify(token, process.env.JWT_SECRET ?? "");
 
+    req.userId = data.userId
+
     next();
   } catch (error) {
     if (error instanceof Error) {

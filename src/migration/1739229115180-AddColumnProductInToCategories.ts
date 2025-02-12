@@ -9,6 +9,7 @@ export class AddColumnProductInToCategories1739229115180
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    
     await queryRunner.addColumns("products", [
       new TableColumn({
         name: "category_id",

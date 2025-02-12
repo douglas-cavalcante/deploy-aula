@@ -45,6 +45,8 @@ class ProductController {
 
   getAll = async (request: Request, response: Response, next: NextFunction) => {
     try {
+    
+
       const query = request.query;
 
       const products = await this.productRepository.find({

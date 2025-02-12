@@ -10,6 +10,8 @@ import userRouter from "./routes/user.routes";
 import productRouter from "./routes/product.routes";
 import {handleError} from "./middlewares/handleError";
 import verifyToken from "./middlewares/auth";
+import fornecedorRouter from "./routes/fornecedor.routes";
+import authRouter from "./routes/auth.routes";
 
 const app = express()
 
@@ -19,9 +21,9 @@ app.use(express.json()) // Permite que o express entenda JSON
 
 
 app.use("/users", userRouter)
-
 app.use("/products", verifyToken, productRouter)
-
+app.use("/fornecedores", fornecedorRouter )
+app.use("/login", authRouter )
 
 app.use(handleError)
 
