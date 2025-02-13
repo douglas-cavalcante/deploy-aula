@@ -5,6 +5,7 @@ import { FindOptionsOrderValue } from "typeorm";
 
 import AppError from "../utils/AppError";
 import SendEmail from "../utils/SendEmail";
+import logger from "../config/winston";
 
 class ProductController {
   private productRepository;
@@ -46,7 +47,7 @@ class ProductController {
   getAll = async (request: Request, response: Response, next: NextFunction) => {
     try {
     
-
+      logger.info("Entrando na rota listar produtos")
       const query = request.query;
 
       const products = await this.productRepository.find({

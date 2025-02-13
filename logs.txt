@@ -1,0 +1,35 @@
+[12-02-2025 09:27:15.463 PM] [32minfo[39m: 	[32mO servidor está rodando em http://localhost:3000[39m
+[12-02-2025 09:28:13.109 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:28:30.945 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:29:04.596 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:29:38.306 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:30:03.939 PM] info: 	Entrando na rota listar produtos
+[12-02-2025 09:34:27.318 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:35:24.080 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:36:40.512 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:38:42.779 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:38:49.081 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:38:52.444 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:39:03.388 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:39:05.861 PM] error: 	No recipients defined
+[12-02-2025 09:39:13.089 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:39:16.235 PM] error: 	No recipients defined
+[12-02-2025 09:39:36.964 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:39:39.356 PM] error: 	No recipients defined
+[12-02-2025 09:40:06.524 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:40:14.878 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:40:17.756 PM] error: 	No recipients defined
+[12-02-2025 09:42:24.545 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:43:29.867 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:44:12.201 PM] error: 	o valor nulo na coluna "amount" da relação "products" viola a restrição de não-nulo
+[12-02-2025 09:49:08.469 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:49:11.124 PM] error: 	QueryFailedError: o valor nulo na coluna "amount" da relação "products" viola a restrição de não-nulo
+    at PostgresQueryRunner.query (C:\Users\Windows 10 Pro\Desktop\projeto_semana_08\mod02-semana07\src\driver\postgres\PostgresQueryRunner.ts:331:19)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at InsertQueryBuilder.execute (C:\Users\Windows 10 Pro\Desktop\projeto_semana_08\mod02-semana07\src\query-builder\InsertQueryBuilder.ts:163:33)
+    at SubjectExecutor.executeInsertOperations (C:\Users\Windows 10 Pro\Desktop\projeto_semana_08\mod02-semana07\src\persistence\SubjectExecutor.ts:435:42)
+    at SubjectExecutor.execute (C:\Users\Windows 10 Pro\Desktop\projeto_semana_08\mod02-semana07\src\persistence\SubjectExecutor.ts:137:9)
+    at EntityPersistExecutor.execute (C:\Users\Windows 10 Pro\Desktop\projeto_semana_08\mod02-semana07\src\persistence\EntityPersistExecutor.ts:182:21)
+[12-02-2025 09:49:33.588 PM] info: 	O servidor está rodando em http://localhost:3000
+[12-02-2025 09:49:34.892 PM] error: 	o valor nulo na coluna "amount" da relação "products" viola a restrição de não-nulo
+[12-02-2025 09:50:13.817 PM] info: 	O servidor está rodando em http://localhost:3000
