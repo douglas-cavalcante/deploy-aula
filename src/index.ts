@@ -29,6 +29,7 @@ app.get("/env", (req, res) => {
     res.json({
         port: process.env.PORT,
         node_env: process.env.NODE_ENV,
+        message: 'teste'
     })
 })
 
